@@ -1,0 +1,67 @@
+{
+  "manifest_version": 3,
+  "name": "{{envBadge}}SEP Wallet — Smart Energy Chain",
+  "version": "{{pkg.version}}",
+  "icons": {
+    "16": "icons/16.png",
+    "48": "icons/128.png",
+    "128": "icons/512.png"
+  },
+  "description": "__MSG_appDesc__",
+  "homepage_url": "https://secexplorer.io/",
+  "short_name": "SEP Wallet",
+  "permissions": [
+    "tabs",
+    "storage",
+    "clipboardWrite",
+    "activeTab",
+    "scripting"
+  ],
+
+  "host_permissions": [
+    "http://localhost:8545/",
+    "file://*/*",
+    "http://*/*",
+    "https://*/*"
+  ],
+
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; frame-ancestors 'none';"
+  },
+  "author": "https://secexplorer.io/",
+  "__firefox__applications": {
+    "gecko": {
+      "id": "webextension@secexplorer.io",
+      "strict_min_version": "68.0"
+    }
+  },
+  "__chrome__minimum_chrome_version": "88",
+  "default_locale": "en",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "SEP Wallet",
+    "default_icon": {
+      "16": "icons/16.png",
+      "48": "icons/128.png",
+      "128": "icons/512.png"
+    },
+    "__chrome__chrome_style": false,
+    "__firefox__browser_style": false
+  },
+  "background": {
+    "service_worker": "sw.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["file://*/*", "http://*/*", "https://*/*"],
+      "js": ["scripts/content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": ["https://secexplorer.io/*"],
+      "js": ["scripts/version.js"],
+      "run_at": "document_start"
+    }
+  ]
+}

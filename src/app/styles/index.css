@@ -1,0 +1,410 @@
+@import "inter-ui/inter-variable.css";
+
+* {
+  font-variant-ligatures: none;
+}
+
+img,
+a {
+  -webkit-user-drag: none;
+}
+
+/**
+ * Custom utilities
+ */
+
+.brandbg-main,
+.brandbg-popup {
+  /* background: radial-gradient(
+      30.26% 62.3% at 93.12% 25.55%,
+      rgba(90, 4, 20, 0.056) 0%,
+      rgba(13, 14, 29, 0) 100%
+    ),
+    radial-gradient(
+      43.61% 135.15% at 0% 77.51%,
+      rgba(4, 73, 88, 0.1) 0%,
+      rgba(13, 14, 29, 0) 100%
+    ),
+    #181A1F; */
+
+  /* @apply bg-gray-900; */
+  /* background-color: #151918; #101918; */
+  /* background-color: #212121; */
+  @apply bg-brand-darkbg;
+}
+
+.brandbg-main-fallback,
+.brandbg-popup-fallback {
+  @apply bg-brand-darkbg;
+}
+
+.brandbg-large-modal {
+  @apply bg-brand-darkbg;
+
+  /* background: radial-gradient(
+      31.72% 37.17% at 85.81% 79.17%,
+      rgba(43, 44, 65, 0.2) 0%,
+      rgba(13, 14, 32, 0.2) 100%
+    ),
+    radial-gradient(
+      23.27% 20.91% at 21% 5.21%,
+      rgba(39, 39, 66, 0.2) 0%,
+      rgba(10, 11, 29, 0.2) 100%
+    ),
+    radial-gradient(
+      22.34% 32.22% at 56.41% 11.32%,
+      rgba(68, 69, 94, 0.2) 0%,
+      rgba(12, 13, 31, 0.2) 100%
+    ),
+    radial-gradient(
+      27.94% 35% at 25.62% 50%,
+      rgba(118, 123, 160, 0.2) 0%,
+      rgba(13, 14, 32, 0.2) 100%
+    ),
+    #0c0d1e !important; */
+}
+
+.brandbg-secondary-modal {
+  background: radial-gradient(
+      33.62% 91.96% at 64.57% 13.41%,
+      #26273a 0%,
+      rgba(19, 20, 39, 0) 78.62%
+    ),
+    linear-gradient(115.9deg, #1e2133 7.71%, #191b2f 44.05%, #131427 66.44%);
+  border: 1px solid rgba(204, 214, 255, 0.15);
+}
+
+/**
+ * TailwindCSS
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  svg.styled-icon * {
+    transition-property: all;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in;
+  }
+
+  .styled-icon {
+    --color-1: #696c73;
+    --color-2: #2a2d35;
+    --color-3: #272a32;
+    --color-4: #2a2d35;
+  }
+
+  .styled-icon--hover {
+    --color-1: #949cae;
+    --color-2: #373b45;
+    --color-3: #272a32;
+    --color-4: #373b45;
+  }
+
+  .styled-icon--active {
+    --color-1: theme("colors.brand.redone");
+    --color-2: #373b45;
+    --color-3: #373b45;
+    --color-4: #696c73;
+  }
+
+  .styled-icon--pending {
+    --color-1: #949cae;
+    --color-2: #373b45;
+    --color-3: #373b45;
+    --color-4: #696c73;
+  }
+
+  .styled-icon--pending path[class$="active-element"] {
+    animation: styled-icon--pending-pulse 2.5s infinite;
+  }
+
+  .styled-icon--pending path[class$="active-element--fill"] {
+    animation: styled-icon-fill--pending-pulse 2.5s infinite;
+  }
+
+  .styled-icon-popup {
+    --color-1: #fff;
+  }
+
+  .styled-icon-popup--active {
+    --color-1: #0d1311;
+  }
+
+  @keyframes styled-icon--pending-pulse {
+    0% {
+      stroke: var(--color-1);
+    }
+    50% {
+      stroke: #d99e2e;
+    }
+    100% {
+      stroke: var(--color-1);
+    }
+  }
+
+  @keyframes styled-icon-fill--pending-pulse {
+    0% {
+      fill: var(--color-1);
+    }
+    50% {
+      fill: #d99e2e;
+    }
+    100% {
+      fill: var(--color-1);
+    }
+  }
+
+  .styled-label--pending {
+    animation: styled-label--pending-pulse 2.5s infinite;
+  }
+
+  @keyframes styled-label--pending-pulse {
+    0% {
+      color: inherit;
+    }
+    50% {
+      color: #d99e2e;
+    }
+    100% {
+      color: inherit;
+    }
+  }
+
+  /* For Webkit-based browsers (Chrome, Safari and Opera) */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  /* For IE, Edge and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+/**
+ * Tailwind Typography
+ */
+
+.prose.prose-invert {
+  --tw-prose-body: theme("colors.brand.inactivelight");
+}
+
+/**
+ * Radix
+ */
+
+div[data-radix-popper-content-wrapper] {
+  will-change: scroll-position !important;
+}
+
+div[data-radix-scroll-area-viewport].viewportBlock > div {
+  display: block !important;
+}
+
+/**
+ * Selected wallet card flip animation
+ */
+
+.card-flip-enter {
+  transform: rotateX(-90deg);
+}
+.card-flip-enter > * {
+  opacity: 0.5;
+}
+
+.card-flip-enter-active {
+  transform: rotateX(0deg);
+}
+.card-flip-enter-active > * {
+  opacity: 1;
+}
+
+.card-flip-exit {
+  transform: rotateX(0deg);
+}
+.card-flip-exit > * {
+  opacity: 1;
+}
+
+.card-flip-exit-active {
+  transform: rotateX(90deg);
+}
+.card-flip-exit-active > * {
+  opacity: 0.5;
+}
+
+.opacity-transition-enter {
+  opacity: 0;
+}
+.opacity-transition-enter-done {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+
+/**
+ * Welcome page CTA pulse animation
+ */
+
+.shadow-pulse {
+  animation: brand-shadow-pulse 2.5s infinite;
+}
+.shadow-pulse:hover {
+  animation: none;
+}
+
+@keyframes brand-shadow-pulse {
+  0% {
+    box-shadow: 0 5px 25px rgba(255, 0, 45, 0);
+  }
+  50% {
+    box-shadow: 0 5px 25px rgba(255, 0, 45, 0.5);
+  }
+  100% {
+    box-shadow: 0 5px 25px rgba(255, 0, 45, 0);
+  }
+}
+
+/**
+ * React JSON View
+ */
+
+.react-json-view .variable-row,
+.react-json-view .object-key-val {
+  border-left: none !important;
+}
+
+/**
+ * Ledger animation
+ */
+
+.ledger-button-action {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: ledgerPulse 2.5s infinite;
+}
+
+@keyframes ledgerPulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  75% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/**
+ * Toast animations
+ */
+
+.toast[data-state="open"] {
+  animation: toastSlideIn 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.toast[data-state="closed"] {
+  animation: toastHide 100ms ease-in forwards;
+}
+.toast[data-swipe="move"] {
+  transform: translateX(var(--radix-toast-swipe-move-x));
+}
+.toast[data-swipe="cancel"] {
+  transform: translateX(0);
+  transition: transform 200ms ease-out;
+}
+.toast[data-swipe="end"] {
+  animation: toastSwipeOut 100ms ease-out forwards;
+}
+
+@keyframes toastHide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes toastSlideIn {
+  0% {
+    transform: translateX(calc(100% + 24px));
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes toastSwipeOut {
+  0% {
+    transform: translateX(var(--radix-toast-swipe-end-x));
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(calc(100% + 24px));
+    opacity: 0;
+  }
+}
+
+/**
+ * Spinner
+ */
+
+.atom-spinner {
+  transform: rotateZ(45deg);
+  perspective: 1000px;
+  border-radius: 50%;
+  color: #f8fcfd;
+}
+.atom-spinner:before,
+.atom-spinner:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  border-radius: 50%;
+  transform: rotateX(70deg);
+  animation: 1s atom-spin linear infinite;
+}
+.atom-spinner:before {
+  animation-delay: -0.4s;
+}
+.atom-spinner:after {
+  color: rgb(128, 239, 110);
+  transform: rotateY(70deg);
+}
+
+@keyframes atom-spin {
+  0%,
+  100% {
+    box-shadow: 0.2em 0px 0 0px currentcolor;
+  }
+  12% {
+    box-shadow: 0.2em 0.2em 0 0 currentcolor;
+  }
+  25% {
+    box-shadow: 0 0.2em 0 0px currentcolor;
+  }
+  37% {
+    box-shadow: -0.2em 0.2em 0 0 currentcolor;
+  }
+  50% {
+    box-shadow: -0.2em 0 0 0 currentcolor;
+  }
+  62% {
+    box-shadow: -0.2em -0.2em 0 0 currentcolor;
+  }
+  75% {
+    box-shadow: 0px -0.2em 0 0 currentcolor;
+  }
+  87% {
+    box-shadow: 0.2em -0.2em 0 0 currentcolor;
+  }
+}

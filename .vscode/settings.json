@@ -1,0 +1,11 @@
+{
+  "tailwindCSS.experimental.classRegex": [
+    "classNamed`([^`]*)", // classNamed`...`
+    "classNamed\\.\\w+`([^`]*)", // classNamed.xxx`...`
+    "classNamed\\(.*?\\)`([^`]*)" // classNamed(Component)`...`
+  ],
+  "i18n-ally.localesPaths": ["public/locales"],
+  "i18n-ally.keystyle": "flat",
+  "i18n-ally.enabledFrameworks": ["general", "react"],
+  "i18n-ally.sortKeys": true
+}

@@ -1,0 +1,31 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# TypeChain types
+/src/abi-types
+
+# dest
+/dist
+
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# Env
+.env.*
+
+# misc
+.swc
+.DS_Store
+/.idea
+
+package-lock.json
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.yarn
