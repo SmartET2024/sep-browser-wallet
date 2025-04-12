@@ -1,0 +1,60 @@
+name: New Code
+
+on:
+  pull_request:
+    branches:
+      - main
+      - dev
+
+env:
+  WIGWAM_STATIC_CDN: ${{ secrets.WIGWAM_STATIC_CDN }}
+  WIGWAM_INDEXER_API: ${{ secrets.WIGWAM_INDEXER_API }}
+  WIGWAM_INDEXER_API_KEY: ${{ secrets.WIGWAM_INDEXER_API_KEY }}
+  WIGWAM_INFURA_API_KEY: ${{ secrets.WIGWAM_INFURA_API_KEY }}
+  WIGWAM_ANALYTICS_API_KEY: ${{ secrets.TEST_WIGWAM_ANALYTICS_API_KEY }}
+  WIGWAM_OPEN_LOGIN_CLIENT_ID: ${{ secrets.TEST_WIGWAM_OPEN_LOGIN_CLIENT_ID }}
+  WIGWAM_ON_RAMP_API_KEY: ${{ secrets.WIGWAM_ON_RAMP_API_KEY }}
+  WIGWAM_ON_RAMP_API_URL: ${{ secrets.WIGWAM_ON_RAMP_API_URL }}
+
+jobs:
+  newcode:
+    name: Check the new code before merging and create a build with it
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "yarn"
+
+      - name: Install deps
+        run: yarn install --frozen-lockfile
+
+      - name: Check TypeScript
+        run: yarn ts
+
+      - name: Check ESLint
+        run: yarn lint
+
+      - name: Run tests
+        run: yarn test
+
+      - name: Create app build
+        run: yarn build:chrome
+
+      - uses: gacts/github-slug@v1
+        id: slug
+        with:
+          to-slug: ${{ github.event.pull_request.title }} Wigwam
+
+      - name: Export app build
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.slug.outputs.slug }}
+          path: |
+            dist/prod/chrome.zip
+          if-no-files-found: error
+          retention-days: 21
