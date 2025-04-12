@@ -101,7 +101,7 @@ const ChooseAddAccountWay = memo<{ onLedgerOpened?: () => void }>(
             isInitialWallet ? "Join the future of finance with Wigwam" : null
           }
         >
-          {isInitialWallet ? "Let’s start your journey" : "Add more wallets"}
+          {isInitialWallet ? "Let's start your journey" : "Add more wallets"}
         </AddAccountHeader>
 
         <div

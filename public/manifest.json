@@ -39,7 +39,7 @@
   "default_locale": "en",
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Wigwam",
+    "default_title": "Smart Enery Chain",
     "default_icon": {
       "16": "icons/16.png",
       "48": "icons/128.png",
