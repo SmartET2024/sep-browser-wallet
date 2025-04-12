@@ -31,12 +31,14 @@ import { MANTLE } from "./mantle";
 import { ROOTSTOCK } from "./rootstock";
 import { MODE } from "./mode";
 import { BLAST } from "./blast";
+import { SEC } from "./sec";
 
 // Currently taken from
 // https://github.com/TP-Lab/networklist-org/blob/main/chains.json
 // https://chainid.network/chains.json
 
 export const DEFAULT_NETWORKS: Network[] = [
+  SEC,
   ETHEREUM,
   POLYGON,
   BSC,
