@@ -96,7 +96,7 @@ if (process.env.RELEASE_ENV === "false") {
   );
 }
 
-export const INITIAL_NETWORK = ETHEREUM[0]; // Ethereum Mainnet
+export const INITIAL_NETWORK = SEC[0]; // Smart Energy Chain Mainnet
 
 export const NETWORK_ICON_MAP = new Map<number, string>(
   [...DEFAULT_NETWORKS, ...ADDITIONAL_NETWORK_ICONS].map((n) => [
