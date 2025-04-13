@@ -30,4 +30,35 @@ export const ETHEREUM: Network[] = [
     faucetUrls: [],
     infoUrl: "https://ethereum.org",
   },
+  // testnet
+  {
+    chainId: 11155111,
+    type: "testnet",
+    rpcUrls: [
+      "https://sepolia.infura.io/v3/${INFURA_API_KEY}",
+      "https://eth-sepolia.public.blastapi.io",
+      "https://rpc.sepolia.org",
+      "https://1rpc.io/sepolia",
+      "https://sepolia.gateway.tenderly.co",
+      "https://sepolia.drpc.org",
+      "https://endpoints.omniatech.io/v1/eth/sepolia/public",
+      "https://ethereum-sepolia.blockpi.network/v1/rpc/public",
+    ],
+    chainTag: "ethereum",
+    name: "Sepolia",
+    nativeCurrency: {
+      symbol: "ETH",
+      name: "Sepolia Ether",
+      decimals: 18,
+    },
+    ensRegistry: undefined, // ENS not supported on Sepolia
+    explorerUrls: ["https://sepolia.etherscan.io"],
+    explorerApiUrl: "https://api-sepolia.etherscan.io/api",
+    faucetUrls: [
+      "https://sepoliafaucet.com/",
+      "https://faucet.quicknode.com/ethereum/sepolia",
+      "https://faucet.sepolia.dev/",
+    ],
+    infoUrl: "https://ethereum.org/en/developers/docs/networks/#sepolia",
+  },
 ];

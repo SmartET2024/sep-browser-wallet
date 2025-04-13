@@ -2,7 +2,7 @@ import { wrapIpfsNetIcon } from "lib/wigwam-static";
 
 import { mergeNetworkUrls } from "core/common";
 import { Network } from "core/types";
-import { getAllEvmNetworks } from "core/common/chainList";
+import { EvmNetwork, getAllEvmNetworks } from "core/common/chainList";
 
 import { DEFAULT_NETWORKS } from "fixtures/networks";
 
@@ -11,8 +11,11 @@ import { networks } from "./helpers";
 
 export async function setupFixtures() {
   try {
-    const allEvmNetworks =
-      process.env.NODE_ENV !== "test" ? await getAllEvmNetworks() : [];
+    console.log(process.env.NODE_ENV);
+    // const allEvmNetworks =
+    //   process.env.NODE_ENV !== "test" ? await getAllEvmNetworks() : [];
+
+    const allEvmNetworks: EvmNetwork[] = [];
 
     await db.transaction("rw", networks, async () => {
       const existingNetworks = await networks.toArray();
