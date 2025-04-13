@@ -21,7 +21,7 @@ const Settings: FC = () => {
   const activeRoute = useMemo(
     () =>
       tabsContent.find(({ route }) => route.setting === activeTabRoute)?.route,
-    [activeTabRoute],
+    [activeTabRoute]
   );
 
   return (
@@ -29,7 +29,7 @@ const Settings: FC = () => {
       className={classNames(
         "px-6 -mx-6 min-h-0",
         "flex grow",
-        "overflow-x-auto scrollbar-hide",
+        "overflow-x-auto scrollbar-hide"
       )}
     >
       <SecondaryTabs tabs={tabsContent} activeRoute={activeRoute} />
@@ -86,6 +86,6 @@ const tabsContent = [
     route: { page: "settings", setting: SettingTabEnum.About },
     Icon: AboutIcon,
     title: "About",
-    desc: "Check current Wigwam version. Find us elsewhere.",
+    desc: "Check current Smart Energy Chain version. Find us elsewhere.",
   },
 ];
