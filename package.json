@@ -1,6 +1,6 @@
 {
   "name": "@sec/app",
-  "version": "2.7.4",
+  "version": "0.0.1",
   "private": true,
   "license": "MIT",
   "scripts": {

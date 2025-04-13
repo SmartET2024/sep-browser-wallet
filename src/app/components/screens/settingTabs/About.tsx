@@ -19,8 +19,8 @@ const About: FC = () => {
       </div>
 
       <p className="text-brand-font text-sm mt-6 mb-8 max-w-[20rem]">
-        Wigwam lets you explore DeFi and NFTs in a safer, faster and more modern
-        way.
+        Smart Energy Chain lets you explore DeFi and NFTs in a safer, faster and
+        more modern way.
       </p>
 
       <AboutHeader>Version</AboutHeader>
@@ -43,7 +43,7 @@ const About: FC = () => {
               className={classNames(
                 "p-1",
                 "flex justify-center items-center",
-                "group",
+                "group"
               )}
               aria-label={label}
             >
@@ -52,7 +52,7 @@ const About: FC = () => {
                   "w-8 h-8",
                   "fill-brand-inactivelight group-hover:fill-brand-light",
                   "group-focus-visible:fill-brand-light",
-                  "transition-colors ease-in-out",
+                  "transition-colors ease-in-out"
                 )}
               />
             </a>
@@ -105,59 +105,63 @@ const Link: FC<LinkProps> = ({ label, href, className }) => (
       "text-sm",
       "transition-colors ease-in-out",
       "text-brand-inactivelight hover:text-brand-light focus-visible:text-brand-light",
-      className,
+      className
     )}
   >
     {label}
   </a>
 );
 
+// TODO: Update these links
+
 const usefulLinks = [
   {
     label: "Website",
-    href: "https://wigwam.app/",
+    href: "",
   },
   {
     label: "Contact us",
-    href: "https://wigwam.app/contact",
+    href: "",
   },
   {
     label: "Help",
-    href: "https://wigwam.app/help",
+    href: "",
   },
   {
     label: "Terms of Use",
-    href: "https://wigwam.app/terms",
+    href: "",
   },
   {
     label: "Privacy policy",
-    href: "https://wigwam.app/privacy",
+    href: "",
   },
 ];
 
+// TODO: Update these links
+
 const mediaLinks = [
   {
-    href: "https://t.me/wigwamapp",
+    href: "",
     label: "Telegram",
     Icon: TelegramIcon,
   },
   {
-    href: "https://twitter.com/wigwam_app",
+    href: "",
     label: "Twitter",
     Icon: TwitterIcon,
   },
   {
-    href: "https://wigwamapp.medium.com",
+    href: "",
     label: "Medium",
     Icon: MediumIcon,
   },
   {
-    href: "https://github.com/wigwamapp",
+    href: "",
     label: "Github",
     Icon: GithubIcon,
   },
   {
-    href: "https://discord.gg/MAG2fnSqSK",
+    href: "",
     label: "Discord",
     Icon: DiscordIcon,
   },
