@@ -81,7 +81,7 @@ const AttentionContent = [
     content: (
       <>
         <p className="mb-2">
-          It is not possible to recover the current profile password. Wigwam is{" "}
+          It is not possible to recover the current profile password. Smart Energy Chain is{" "}
           <strong>non-custodial</strong> software. The user is the only one who
           knows the password.
         </p>
