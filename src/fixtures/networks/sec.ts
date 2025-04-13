@@ -7,7 +7,7 @@ export const SEC: Network[] = [
     type: "mainnet",
     rpcUrls: ["https://rpc.secexplorer.io/"],
     chainTag: "sec",
-    name: "Smart Energy Chain Mainnet",
+    name: "Smart Energy Chain",
     nativeCurrency: {
       symbol: "SEP",
       name: "SEP Native Token",
