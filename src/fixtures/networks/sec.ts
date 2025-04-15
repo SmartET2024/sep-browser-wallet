@@ -18,4 +18,21 @@ export const SEC: Network[] = [
     faucetUrls: [],
     infoUrl: "https://smartenergychain.org",
   },
+  // Testnet
+  {
+    chainId: 15915,
+    type: "testnet",
+    rpcUrls: ["https://testnet-rpc.secexplorer.io/"],
+    chainTag: "sec",
+    name: "Smart Energy Chain Testnet",
+    nativeCurrency: {
+      symbol: "SEP",
+      name: "SEP Native Token",
+      decimals: 18,
+    },
+    explorerUrls: ["https://testnet-secexplorer.io/"],
+    explorerApiUrl: "https://secexplorer.io/api-docs",
+    faucetUrls: [],
+    infoUrl: "https://smartenergychain.org",
+  },
 ];
