@@ -10,10 +10,27 @@ export const SEC: Network[] = [
     name: "Smart Energy Chain",
     nativeCurrency: {
       symbol: "SEP",
-      name: "SEP Native Token",
+      name: "SEP Native Coin",
       decimals: 18,
     },
     explorerUrls: ["https://secexplorer.io/"],
+    explorerApiUrl: "https://secexplorer.io/api-docs",
+    faucetUrls: [],
+    infoUrl: "https://smartenergychain.org",
+  },
+  // Testnet
+  {
+    chainId: 19515,
+    type: "testnet",
+    rpcUrls: ["https://testnet-rpc.secexplorer.io/"],
+    chainTag: "sec",
+    name: "Smart Energy Chain Testnet",
+    nativeCurrency: {
+      symbol: "SEP",
+      name: "SEP Native Coin",
+      decimals: 18,
+    },
+    explorerUrls: ["https://testnet.secexplorer.io/"],
     explorerApiUrl: "https://secexplorer.io/api-docs",
     faucetUrls: [],
     infoUrl: "https://smartenergychain.org",
