@@ -10,7 +10,7 @@ export const SEC: Network[] = [
     name: "Smart Energy Chain",
     nativeCurrency: {
       symbol: "SEP",
-      name: "SEP Native Coin",
+      name: "SEP",
       decimals: 18,
     },
     explorerUrls: ["https://secexplorer.io/"],
@@ -27,7 +27,7 @@ export const SEC: Network[] = [
     name: "Smart Energy Chain Testnet",
     nativeCurrency: {
       symbol: "SEP",
-      name: "SEP Native Coin",
+      name: "SEP",
       decimals: 18,
     },
     explorerUrls: ["https://testnet.secexplorer.io/"],
