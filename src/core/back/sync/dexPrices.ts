@@ -35,133 +35,215 @@ export const dexScreenerApi = axios.create({
 
 const tokenPricesCache = new ExpiryMap<string, DexTokenPrice>(THREE_MIN);
 
+// export async function getDexPrices(tokenAddresses: string[], chainId?: number) {
+//   try {
+//     if (tokenAddresses.length === 0) return {};
+//     if (tokenAddresses.length > 1000) return {}; // To much
+
+//     const allCoinIds = await getCoinGeckoCoinIds();
+
+//     const data: DexPrices = {};
+
+//     const tokensToRefresh: { tokenAddress: string; coinId: string }[] = [];
+//     const coinsToRefreshSet = new Set<string>();
+//     const missedAddresses = new Set<string>();
+
+//     for (const tokenAddress of tokenAddresses) {
+//       const coinIdsByChain = allCoinIds[tokenAddress.toLowerCase()];
+
+//       const coinId = coinIdsByChain
+//         ? chainId
+//           ? coinIdsByChain[chainId]
+//           : Object.values(coinIdsByChain)[0]
+//         : undefined;
+//       const cached = tokenPricesCache.get(
+//         coinId ?? `${chainId ?? ""}_${tokenAddress}`,
+//       );
+
+//       if (cached) {
+//         data[tokenAddress] = cached;
+//         continue;
+//       }
+
+//       if (coinId) {
+//         tokensToRefresh.push({ tokenAddress, coinId });
+//         coinsToRefreshSet.add(coinId);
+//       } else {
+//         missedAddresses.add(tokenAddress);
+//       }
+//     }
+
+//     // Coin gecko - simple
+//     if (coinsToRefreshSet.size > 0) {
+//       const freshCoinPrices: DexPrices = {};
+//       const coinsToRefresh = Array.from(coinsToRefreshSet);
+
+//       while (coinsToRefresh.length > 0) {
+//         const nextCoins = coinsToRefresh.splice(0, 100);
+
+//         const res = await indexerApi.get<DexPrices>("/cg/simple/price", {
+//           params: {
+//             ids: nextCoins.join(),
+//             vs_currencies: "USD",
+//             include_24hr_change: true,
+//           },
+//         });
+
+//         if (!res) continue;
+
+//         Object.assign(freshCoinPrices, res.data);
+//       }
+
+//       // Cache new prices
+//       for (const coinId in freshCoinPrices) {
+//         tokenPricesCache.set(coinId, freshCoinPrices[coinId]);
+//       }
+
+//       // Update data to return
+//       for (const { tokenAddress, coinId } of tokensToRefresh) {
+//         const prices = freshCoinPrices[coinId];
+//         if (prices) data[tokenAddress] = prices;
+//       }
+//     }
+
+//     // Dex screener
+//     if (missedAddresses.size > 0 && missedAddresses.size <= 500) {
+//       const addressesToRefresh = Array.from(missedAddresses);
+
+//       try {
+//         while (addressesToRefresh.length > 0) {
+//           const nextAddresses = addressesToRefresh.splice(0, 30);
+
+//           const res = await dexScreenerApi
+//             .get(`/dex/tokens/${nextAddresses.join()}`)
+//             .catch(() => null);
+
+//           const dsPairs = res?.data?.pairs;
+//           if (!dsPairs) continue;
+
+//           for (const pair of dsPairs) {
+//             const reserveBN = new BigNumber(pair.liquidity?.usd);
+
+//             if (reserveBN.isNaN() || reserveBN.isLessThan(100)) {
+//               continue;
+//             } else {
+//               const baseBN = new BigNumber(pair.liquidity.base);
+//               const quoteBN = new BigNumber(pair.liquidity.quote);
+
+//               if (baseBN.isLessThan(0.01) || quoteBN.isLessThan(0.01)) {
+//                 continue;
+//               }
+//             }
+
+//             const tokenAddress = getAddress(pair.baseToken?.address);
+//             const existing = data[tokenAddress];
+
+//             if (
+//               existing?.usd_reserve &&
+//               new BigNumber(existing.usd_reserve).isGreaterThan(reserveBN)
+//             ) {
+//               continue;
+//             }
+
+//             const usdPrice = new BigNumber(pair.priceUsd).toNumber();
+//             if (!usdPrice) continue;
+
+//             const usdPriceChange =
+//               new BigNumber(pair.priceChange?.h24).toNumber() || undefined;
+
+//             const price: DexTokenPrice = {
+//               usd: usdPrice,
+//               usd_24h_change: usdPriceChange,
+//               usd_reserve: reserveBN.toString(),
+//             };
+
+//             data[tokenAddress] = price;
+//             tokenPricesCache.set(`${chainId ?? ""}_${tokenAddress}`, price);
+//           }
+//         }
+//       } catch (err) {
+//         console.error(err);
+//       }
+//     }
+
+//     return data;
+//   } catch (err) {
+//     console.error(err);
+//     return {};
+//   }
+// }
+
+type Coin = {
+  id: string;
+  chainId: number;
+  symbol: string;
+  name: string;
+};
+
 export async function getDexPrices(tokenAddresses: string[], chainId?: number) {
   try {
-    if (tokenAddresses.length === 0) return {};
-    if (tokenAddresses.length > 1000) return {}; // To much
-
-    const allCoinIds = await getCoinGeckoCoinIds();
+    const coinsList: Coin[] = [
+      {
+        id: "ethereum",
+        chainId: 1,
+        symbol: "eth",
+        name: "Ethereum",
+      },
+      {
+        id: "matic-network",
+        chainId: 137,
+        symbol: "matic",
+        name: "Polygon",
+      },
+      {
+        id: "smart-energy-pay",
+        chainId: 19516,
+        symbol: "sep",
+        name: "Smart Energy Pay",
+      },
+    ];
 
     const data: DexPrices = {};
-    const tokensToRefresh: { tokenAddress: string; coinId: string }[] = [];
-    const coinsToRefreshSet = new Set<string>();
-    const missedAddresses = new Set<string>();
 
-    for (const tokenAddress of tokenAddresses) {
-      const coinIdsByChain = allCoinIds[tokenAddress.toLowerCase()];
+    // Get platform ID from coinsList based on chainId
+    const platformId = coinsList.find((coin) => coin.chainId === chainId)?.id;
+    if (!platformId) return {};
 
-      const coinId = coinIdsByChain
-        ? chainId
-          ? coinIdsByChain[chainId]
-          : Object.values(coinIdsByChain)[0]
-        : undefined;
-      const cached = tokenPricesCache.get(
-        coinId ?? `${chainId ?? ""}_${tokenAddress}`,
-      );
+    // Filter out zero address (native token)
+    const erc20Addresses = tokenAddresses.filter(
+      (addr) => addr !== "0x0000000000000000000000000000000000000000",
+    );
 
-      if (cached) {
-        data[tokenAddress] = cached;
-        continue;
-      }
+    // Dummy data for common tokens
+    // const dummyPrices: Record<string, DexTokenPrice> = {
+    //   // SED
+    //   "0x32ed35a604f480967de31911c3717acc7b4dc136": {
+    //     usd: 0.00571939,
+    //     usd_24h_change: 0.15869912523572458,
+    //     usd_reserve: "800000000",
+    //   },
+    // };
 
-      if (coinId) {
-        tokensToRefresh.push({ tokenAddress, coinId });
-        coinsToRefreshSet.add(coinId);
+    console.log(`Token Addresses: ${JSON.stringify(erc20Addresses)}`);
+    console.log(`Platform ID: ${platformId}`);
+
+    const dummyPrices: Record<string, DexTokenPrice> =
+      await fetchCoinGeckoTokenPrices(platformId, erc20Addresses.join(), "usd");
+
+    console.log(`Prices Tokens: ${JSON.stringify(dummyPrices)}`);
+
+    // Return dummy data for requested tokens
+    for (const tokenAddress of erc20Addresses) {
+      const normalizedAddress = tokenAddress.toLowerCase();
+      if (dummyPrices[normalizedAddress]) {
+        data[tokenAddress] = dummyPrices[normalizedAddress];
       } else {
-        missedAddresses.add(tokenAddress);
-      }
-    }
-
-    // Coin gecko - simple
-    if (coinsToRefreshSet.size > 0) {
-      const freshCoinPrices: DexPrices = {};
-      const coinsToRefresh = Array.from(coinsToRefreshSet);
-
-      while (coinsToRefresh.length > 0) {
-        const nextCoins = coinsToRefresh.splice(0, 100);
-
-        const res = await indexerApi.get<DexPrices>("/cg/simple/price", {
-          params: {
-            ids: nextCoins.join(),
-            vs_currencies: "USD",
-            include_24hr_change: true,
-          },
-        });
-
-        if (!res) continue;
-
-        Object.assign(freshCoinPrices, res.data);
-      }
-
-      // Cache new prices
-      for (const coinId in freshCoinPrices) {
-        tokenPricesCache.set(coinId, freshCoinPrices[coinId]);
-      }
-
-      // Update data to return
-      for (const { tokenAddress, coinId } of tokensToRefresh) {
-        const prices = freshCoinPrices[coinId];
-        if (prices) data[tokenAddress] = prices;
-      }
-    }
-
-    // Dex screener
-    if (missedAddresses.size > 0 && missedAddresses.size <= 500) {
-      const addressesToRefresh = Array.from(missedAddresses);
-
-      try {
-        while (addressesToRefresh.length > 0) {
-          const nextAddresses = addressesToRefresh.splice(0, 30);
-
-          const res = await dexScreenerApi
-            .get(`/dex/tokens/${nextAddresses.join()}`)
-            .catch(() => null);
-
-          const dsPairs = res?.data?.pairs;
-          if (!dsPairs) continue;
-
-          for (const pair of dsPairs) {
-            const reserveBN = new BigNumber(pair.liquidity?.usd);
-
-            if (reserveBN.isNaN() || reserveBN.isLessThan(100)) {
-              continue;
-            } else {
-              const baseBN = new BigNumber(pair.liquidity.base);
-              const quoteBN = new BigNumber(pair.liquidity.quote);
-
-              if (baseBN.isLessThan(0.01) || quoteBN.isLessThan(0.01)) {
-                continue;
-              }
-            }
-
-            const tokenAddress = getAddress(pair.baseToken?.address);
-            const existing = data[tokenAddress];
-
-            if (
-              existing?.usd_reserve &&
-              new BigNumber(existing.usd_reserve).isGreaterThan(reserveBN)
-            ) {
-              continue;
-            }
-
-            const usdPrice = new BigNumber(pair.priceUsd).toNumber();
-            if (!usdPrice) continue;
-
-            const usdPriceChange =
-              new BigNumber(pair.priceChange?.h24).toNumber() || undefined;
-
-            const price: DexTokenPrice = {
-              usd: usdPrice,
-              usd_24h_change: usdPriceChange,
-              usd_reserve: reserveBN.toString(),
-            };
-
-            data[tokenAddress] = price;
-            tokenPricesCache.set(`${chainId ?? ""}_${tokenAddress}`, price);
-          }
-        }
-      } catch (err) {
-        console.error(err);
+        // For unknown tokens, return a default price
+        data[tokenAddress] = {
+          usd: 1.0,
+          usd_24h_change: 0,
+          usd_reserve: "1000000",
+        };
       }
     }
 
@@ -172,25 +254,169 @@ export async function getDexPrices(tokenAddresses: string[], chainId?: number) {
   }
 }
 
+export const fetchCoinGeckoTokenPrices = memoize(
+  async (
+    platformId: string,
+    contractAddresses: string,
+    vs_currencies: string = "usd",
+  ): Promise<DexPrices> => {
+    try {
+      const response = await coinGeckoApi.get(
+        `/simple/token_price/${platformId}`,
+        {
+          params: {
+            contractAddresses,
+            vs_currencies,
+          },
+          headers: {
+            "x-cg-demo-api-key": "",
+          },
+        },
+      );
+
+      return response.data;
+    } catch (err) {
+      console.error("Error fetching CoinGecko token prices:", err);
+      return {};
+    }
+  },
+  {
+    maxAge: THREE_MIN, // 3 min
+  },
+);
+
 export const getCoinGeckoNativeTokenPrice = async (chainId: number) => {
   try {
-    const { platformIds, chainIds } = await getCoinGeckoPlatformIds();
+    // Dummy platform IDs and chain IDs mapping
+    const dummyPlatformIds: Record<
+      string,
+      { native_coin_id: string; chain_id: number }
+    > = {
+      ethereum: { native_coin_id: "ethereum", chain_id: 1 },
+      "binance-smart-chain": { native_coin_id: "binancecoin", chain_id: 56 },
+      "polygon-pos": { native_coin_id: "matic-network", chain_id: 137 },
+      "arbitrum-one": { native_coin_id: "ethereum", chain_id: 42161 },
+      "optimistic-ethereum": { native_coin_id: "ethereum", chain_id: 10 },
+      "smart-energy-pay": {
+        native_coin_id: "smart-energy-pay",
+        chain_id: 19516,
+      },
+      "smart-energy-pay-testnet": {
+        native_coin_id: "smart-energy-pay-testnet",
+        chain_id: 19516,
+      },
+    };
 
-    let nativeCoinId: string | undefined =
-      platformIds[chainIds[chainId]]?.native_coin_id;
+    const dummyChainIds: Record<number, string> = {
+      1: "ethereum",
+      56: "binance-smart-chain",
+      137: "polygon-pos",
+      42161: "arbitrum-one",
+      10: "optimistic-ethereum",
+      19516: "smart-energy-pay",
+      19515: "smart-energy-pay-testnet",
+    };
 
-    if (!nativeCoinId) nativeCoinId = ADDITIONAL_PLATFORM_COINS.get(chainId);
+    // Dummy prices for native tokens
+    // const dummyPrices: Record<string, DexTokenPrice> = {
+    //   ethereum: {
+    //     usd: 3500.42,
+    //     usd_24h_change: 2.5,
+    //     usd_reserve: "1000000000",
+    //   },
+    //   binancecoin: {
+    //     usd: 300.15,
+    //     usd_24h_change: 1.2,
+    //     usd_reserve: "800000000",
+    //   },
+    //   "matic-network": {
+    //     usd: 0.75,
+    //     usd_24h_change: -0.5,
+    //     usd_reserve: "500000000",
+    //   },
+    //   "smart-energy-pay": {
+    //     usd: 0.00571939,
+    //     usd_24h_change: 0.15869912523572458,
+    //     usd_reserve: "800000000",
+    //   },
+    //   "smart-energy-pay-testnet": {
+    //     usd: 0.00571939,
+    //     usd_24h_change: 0.15869912523572458,
+    //     usd_reserve: "800000000",
+    //   },
+    // };
+
+    const apiIds = "ethereum,binancecoin,smart-energy-pay,matic-network";
+    const dummyPrices = await fetchCoinGeckoPrices(apiIds);
+    // Returns: { "smart-energy-pay": { usd: 0.005682, usd_24h_change: -0.3429139127518352 } }
+    // console.log(prices);
+
+    console.log(`Prices Native Coin: ${JSON.stringify(dummyPrices)}`);
+
+    // Get native coin ID for the chain
+    const platformId = dummyChainIds[chainId];
+    if (!platformId) return null;
+
+    const nativeCoinId = dummyPlatformIds[platformId]?.native_coin_id;
+
+    console.log(`nativeCoinId: ${nativeCoinId}`);
 
     if (!nativeCoinId) return null;
 
-    const prices = await getCoinGeckoPlatformPrices();
-
-    return nativeCoinId in prices ? prices[nativeCoinId] : null;
+    // Return the price if available, otherwise return null
+    return dummyPrices[nativeCoinId] || null;
   } catch (err) {
     console.error(err);
     return null;
   }
 };
+
+// signed
+export const fetchCoinGeckoPrices = memoize(
+  async (
+    ids: string,
+    vs_currencies: string = "usd",
+    include_24hr_change: boolean = true,
+  ): Promise<DexPrices> => {
+    try {
+      const response = await coinGeckoApi.get("/simple/price", {
+        params: {
+          ids,
+          vs_currencies,
+          include_24hr_change,
+        },
+      });
+
+      return response.data;
+    } catch (err) {
+      console.error("Error fetching CoinGecko prices:", err);
+      return {};
+    }
+  },
+  {
+    maxAge: THREE_MIN, // 3 min
+  },
+);
+
+// export const getCoinGeckoNativeTokenPrice = async (chainId: number) => {
+//   try {
+//     const { platformIds, chainIds } = await getCoinGeckoPlatformIds();
+
+//     let nativeCoinId: string | undefined =
+//       platformIds[chainIds[chainId]]?.native_coin_id;
+
+//     if (!nativeCoinId) nativeCoinId = ADDITIONAL_PLATFORM_COINS.get(chainId);
+
+//     if (!nativeCoinId) return null;
+
+//     const prices = await getCoinGeckoPlatformPrices();
+
+//     return nativeCoinId in prices ? prices[nativeCoinId] : null;
+//   } catch (err) {
+//     console.error(err);
+//     return null;
+//   }
+// };
 
 export const getCoinGeckoPlatformPrices = memoize(
   async () => {

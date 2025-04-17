@@ -245,5 +245,5 @@ async function fetchUxAccountTokens(chainId: number, accountAddress: string) {
 
 const U_INDEXER_CHAINS = new Set([
   1, 56, 137, 42220, 8217, 25, 106, 42161, 43114, 50, 32769, 250, 122,
-  1313161554, 1088, 5000, 1101, 1284, 10, 8453, 34443, 169,
+  1313161554, 1088, 5000, 1101, 1284, 10, 8453, 34443, 169, 19516,
 ]);
