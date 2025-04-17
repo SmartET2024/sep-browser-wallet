@@ -81,14 +81,14 @@ const ChooseAddAccountWay = memo<{ onLedgerOpened?: () => void }>(
               navigateToStep(AddAccountStep.ImportSeedPhrase);
             },
           },
-          {
-            title: "Ledger",
-            description: "Connect your Ledger wallet",
-            Icon: LedgerIcon,
-            action: () => {
-              onLedgerOpened?.();
-            },
-          },
+          // {
+          //   title: "Ledger",
+          //   description: "Connect your Ledger wallet",
+          //   Icon: LedgerIcon,
+          //   action: () => {
+          //     onLedgerOpened?.();
+          //   },
+          // },
         ] as const,
       [existingApplication, stateRef, navigateToStep, onLedgerOpened],
     );

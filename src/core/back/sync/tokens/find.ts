@@ -155,6 +155,8 @@ async function performTokenSync(
   let priceUSD, priceUSDChange: string | undefined;
 
   if (standard === TokenStandard.ERC20) {
+    console.log("find address", [tokenAddress]);
+
     const coinGeckoPrices = await getDexPrices([tokenAddress], chainId).catch(
       () => ({}) as DexPrices,
     );

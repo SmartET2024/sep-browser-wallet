@@ -113,7 +113,7 @@ const OnRampIframe: FC = () => {
             walletAddress: address,
             disableWalletAddressForm: true,
             themeColor: "#0D1311",
-            exchangeScreenTitle: `Securely buy ${onRampCurrency?.symbol} with Wigwam`,
+            exchangeScreenTitle: `Securely buy ${onRampCurrency?.symbol} with SEC`,
           }
         : null,
     [

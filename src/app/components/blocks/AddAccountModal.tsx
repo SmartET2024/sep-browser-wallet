@@ -27,6 +27,8 @@ import BackButton from "app/components/elements/BackButton";
 import ScrollAreaContainer from "app/components/elements/ScrollAreaContainer";
 import AddAccountSteps from "app/components/blocks/AddAccountSteps";
 import { ReactComponent as WigwamIcon } from "app/icons/Wigwam.svg";
+import SECTextLogo from "../elements/sec-logo/SECTextLogo";
+import SECSimpleLogo from "../elements/sec-logo/SECSimpleLogo";
 
 const AddAccountModal = memo(() => {
   const [accModalOpened, setAccModalOpened] = useAtom(addAccountModalAtom);
@@ -140,15 +142,19 @@ const AddAccountModal = memo(() => {
         >
           <OnMount handle={handleContentMount} />
 
-          <WigwamIcon
-            className={classNames(
-              "w-16 h-auto",
-              "absolute",
-              "top-0 left-1/2",
-              "-translate-x-1/2 -translate-y-1/4",
-              "z-30",
-            )}
-          />
+          {/*<WigwamIcon*/}
+          {/*  className={classNames(*/}
+          {/*    "w-16 h-auto",*/}
+          {/*    "absolute",*/}
+          {/*    "top-0 left-1/2",*/}
+          {/*    "-translate-x-1/2 -translate-y-1/4",*/}
+          {/*    "z-30",*/}
+          {/*  )}*/}
+          {/*/>*/}
+
+          <div className="w-16 h-auto absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4">
+            <SECSimpleLogo />
+          </div>
 
           <OverflowProvider>
             {(ref) => (

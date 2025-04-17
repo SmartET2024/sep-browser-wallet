@@ -8,6 +8,9 @@ export function syncAccountTokens(
   chainId: number,
   accountAddress: string,
 ) {
+  console.log(`syncAccountTokens tokenType ${TokenType.Asset}`);
+  console.log(`syncAccountTokens chainId ${chainId}`);
+  console.log(`syncAccountTokens accountAddress ${accountAddress}`);
   const sync =
     tokenType === TokenType.Asset ? syncAccountAssets : syncAccountNFTs;
 

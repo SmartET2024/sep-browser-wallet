@@ -21,19 +21,19 @@ const stepsContent: TStepContent[] = [
   {
     title: "Trade and explore",
     description:
-      "Instantly trade over 2,500 tokens, connect with hundreds of dApps, and create or sell NFTs in the Web3 world, all through Wigwam",
+      "Instantly trade over 2,500 tokens, connect with hundreds of dApps, and create or sell NFTs in the Web3 world, all through SEC",
     image: OnboardingFirstImage,
   },
   {
     title: "Easy access",
     description:
-      "If you can't find a Wigwam button when connecting to a dApp, you can effortlessly connect to Wigwam using MetaMask button instead, as this option is automatically available",
+      "If you can't find a SEC button when connecting to a dApp, you can effortlessly connect to SEC using MetaMask button instead, as this option is automatically available",
     image: OnboardingSecondImage,
   },
   {
     title: "Always near",
     description:
-      "Pin the Wigwam extension on your browser toolbar for fast access to your tokens and to navigate the Web3 space more efficiently",
+      "Pin the SEC extension on your browser toolbar for fast access to your tokens and to navigate the Web3 space more efficiently",
     image: OnboardingThirdImage,
   },
 ];
@@ -62,7 +62,7 @@ const OnBoardingContent: FC = () => {
     <div
       className={classNames(
         "fixed inset-0 z-[999999999999] bg-[#141414] flex flex-col items-center w-full",
-        "p-6 pt-10 h-full"
+        "p-6 pt-10 h-full",
       )}
     >
       <ScrollAreaContainer className="w-full h-full flex flex-col relative max-w-7xl">
@@ -89,7 +89,7 @@ const OnBoardingContent: FC = () => {
             className={classNames(
               "!ml-10",
               "!font-semibold !text-[#93ACAF]",
-              "visible"
+              "visible",
             )}
             theme="clean"
             onClick={
@@ -124,7 +124,7 @@ const StepContent: FC<{ step: number; current: number }> = ({
         "px-16 w-full min-w-full items-center grid grid-cols-1 gap-y-6 gap-x-12",
         "md:grid-cols-2 md:gap-y-0",
         "transition-all duration-300",
-        !isActive ? (current > step ? "-ml-[100%]" : "mr-[100%]") : undefined
+        !isActive ? (current > step ? "-ml-[100%]" : "mr-[100%]") : undefined,
       )}
     >
       <div>
@@ -157,7 +157,7 @@ const StepLine: FC<{ active: boolean }> = ({ active }) => (
       "w-16 h-1 bg-[#D9D9D9]/[.3] rounded-full",
       "relative after:absolute after:h-full after:rounded-full after:bg-[#80EF6E]",
       "after:transition-all after:duration-200",
-      active ? "after:w-full" : "after:w-0"
+      active ? "after:w-full" : "after:w-0",
     )}
   />
 );

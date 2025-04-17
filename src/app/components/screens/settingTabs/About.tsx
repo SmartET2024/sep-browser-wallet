@@ -9,15 +9,16 @@ import { ReactComponent as DiscordIcon } from "app/icons/discord.svg";
 
 import Separator from "app/components/elements/Seperator";
 import { ReactComponent as WigwamLogo } from "app/icons/Wigwam.svg";
+import SECTextLogo from "../../elements/sec-logo/SECTextLogo";
 
 const About: FC = () => {
   return (
     <div className="flex flex-col items-start pt-3">
-      <div className="flex items-center">
-        <WigwamLogo className="w-[3.25rem] h-auto" />
-        <span className="text-2xl font-black ml-4">Wigwam</span>
-      </div>
-
+      {/*<div className="flex items-center">*/}
+      {/*  <WigwamLogo className="w-[3.25rem] h-auto" />*/}
+      {/*  <span className="text-2xl font-black ml-4">Wigwam</span>*/}
+      {/*</div>*/}
+      <SECTextLogo />
       <p className="text-brand-font text-sm mt-6 mb-8 max-w-[20rem]">
         Smart Energy Chain lets you explore DeFi and NFTs in a safer, faster and
         more modern way.
@@ -43,7 +44,7 @@ const About: FC = () => {
               className={classNames(
                 "p-1",
                 "flex justify-center items-center",
-                "group"
+                "group",
               )}
               aria-label={label}
             >
@@ -52,7 +53,7 @@ const About: FC = () => {
                   "w-8 h-8",
                   "fill-brand-inactivelight group-hover:fill-brand-light",
                   "group-focus-visible:fill-brand-light",
-                  "transition-colors ease-in-out"
+                  "transition-colors ease-in-out",
                 )}
               />
             </a>
@@ -105,7 +106,7 @@ const Link: FC<LinkProps> = ({ label, href, className }) => (
       "text-sm",
       "transition-colors ease-in-out",
       "text-brand-inactivelight hover:text-brand-light focus-visible:text-brand-light",
-      className
+      className,
     )}
   >
     {label}
@@ -117,23 +118,23 @@ const Link: FC<LinkProps> = ({ label, href, className }) => (
 const usefulLinks = [
   {
     label: "Website",
-    href: "",
+    href: "https://smartenergypay.com/",
   },
   {
     label: "Contact us",
-    href: "",
+    href: "https://smartenergypay.com/contact",
   },
   {
     label: "Help",
-    href: "",
+    href: "https://smartenergypay.com/support",
   },
   {
     label: "Terms of Use",
-    href: "",
+    href: "https://smartenergypay.com/imprint",
   },
   {
     label: "Privacy policy",
-    href: "",
+    href: "https://smartenergypay.com/privacy-policy",
   },
 ];
 
@@ -141,27 +142,18 @@ const usefulLinks = [
 
 const mediaLinks = [
   {
-    href: "",
+    href: "https://t.me/smartenergypay",
     label: "Telegram",
     Icon: TelegramIcon,
   },
   {
-    href: "",
+    href: "https://x.com/smartenergypay",
     label: "Twitter",
     Icon: TwitterIcon,
   },
+
   {
-    href: "",
-    label: "Medium",
-    Icon: MediumIcon,
-  },
-  {
-    href: "",
-    label: "Github",
-    Icon: GithubIcon,
-  },
-  {
-    href: "",
+    href: "https://discord.gg/t7wrrkSr",
     label: "Discord",
     Icon: DiscordIcon,
   },

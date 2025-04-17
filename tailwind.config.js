@@ -10,8 +10,8 @@ module.exports = {
           darkaccent: "#0D1311",
           darkbg: "#181A1F", // #13191F
           lightgray: "#E4E4E4",
-          redone: "#80EF6E",
-          redtwo: "#80EF6E",
+          redone: "#56b000",
+          redtwo: "#56b000",
           dark: "#181A1F",
           darkblue: "#0E1314",
           darklight: "#2A3C3F",

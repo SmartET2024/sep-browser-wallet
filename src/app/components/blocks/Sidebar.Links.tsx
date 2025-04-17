@@ -51,25 +51,25 @@ const useSidebarLinks = () => {
         Icon: ReceiveIcon,
         action: () => setReceiveOpened([true, "replace"]),
       },
-      {
-        route: Page.Buy,
-        label: "Buy",
-        Icon: BuyIcon,
-        action: () =>
-          trackEvent(TEvent.BuyNavigated, {
-            page: "dashboard",
-          }),
-      },
-      {
-        route: Page.Swap,
-        label: "Swap",
-        Icon: SwapIcon,
-        badge: +swapBadgeAmount,
-        action: () =>
-          trackEvent(TEvent.SwapNavigated, {
-            page: "dashboard",
-          }),
-      },
+      // {
+      //   route: Page.Buy,
+      //   label: "Buy",
+      //   Icon: BuyIcon,
+      //   action: () =>
+      //     trackEvent(TEvent.BuyNavigated, {
+      //       page: "dashboard",
+      //     }),
+      // },
+      // {
+      //   route: Page.Swap,
+      //   label: "Swap",
+      //   Icon: SwapIcon,
+      //   badge: +swapBadgeAmount,
+      //   action: () =>
+      //     trackEvent(TEvent.SwapNavigated, {
+      //       page: "dashboard",
+      //     }),
+      // },
       // {
       //   route: Page.Rewards,
       //   label: "Rewards",
@@ -100,11 +100,11 @@ const useSidebarLinks = () => {
 
   const NavLinksSecondary = useMemo(() => {
     return [
-      {
-        route: Page.Contacts,
-        label: "Contacts",
-        Icon: ContactsIcon,
-      },
+      // {
+      //   route: Page.Contacts,
+      //   label: "Contacts",
+      //   Icon: ContactsIcon,
+      // },
       {
         route: Page.Wallets,
         label: "Wallets",

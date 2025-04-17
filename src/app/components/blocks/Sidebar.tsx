@@ -11,6 +11,7 @@ import { updateAvailableAtom, pageAtom, tokenSlugAtom } from "app/atoms";
 import { ReactComponent as WigwamTitleIcon } from "app/icons/WigwamTitle.svg";
 
 import useSidebarLinks from "./Sidebar.Links";
+import SECSimpleLogo from "../elements/sec-logo/SECSimpleLogo";
 
 const Sidebar: FC = () => {
   const { NavLinksPrimary, NavLinksSecondary } = useSidebarLinks();
@@ -33,7 +34,8 @@ const Sidebar: FC = () => {
           "text-2xl font-black",
         )}
       >
-        <WigwamTitleIcon className={classNames("ml-3 my-1 h-8 w-auto")} />
+        {/*<WigwamTitleIcon className={classNames("ml-3 my-1 h-8 w-auto")} />*/}
+        <SECSimpleLogo />
       </Link>
       <SidebarBlock links={NavLinksPrimary} />
       <SidebarBlock

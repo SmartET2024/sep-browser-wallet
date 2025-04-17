@@ -17,6 +17,8 @@ export const syncConversionRates = withOfflineCache(
   async () => {
     try {
       const { data } = await coinGeckoApi.get("/exchange_rates");
+
+      console.log("rates", data);
       const geckoRates: Record<string, CoinGeckoRate> = data.rates;
 
       if (!geckoRates["usd"]) return;

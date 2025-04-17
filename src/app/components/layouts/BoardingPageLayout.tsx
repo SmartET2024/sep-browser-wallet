@@ -8,6 +8,7 @@ import Button from "app/components/elements/Button";
 import BackButton from "app/components/elements/BackButton";
 import { ReactComponent as WigwamIcon } from "app/icons/WigwamTitle.svg";
 import { ReactComponent as ArrowLeftLongIcon } from "app/icons/arrow-left-long.svg";
+import SECTextLogo from "../elements/sec-logo/SECTextLogo";
 // import WelcomeBgImage from "app/images/welcome-bg.jpg";
 // import WelcomeTreeLeftImage from "app/images/welcome-tree-left.png";
 // import WelcomeTreeRightImage from "app/images/welcome-tree-right.png";
@@ -81,7 +82,8 @@ const BoardingPageLayout: FC<PropsWithChildren<BoardingPageLayoutProps>> = ({
           "w-full flex justify-center items-center",
         )}
       >
-        <WigwamIcon className={classNames("h-[2rem]", "w-auto mr-3")} />
+        <SECTextLogo />
+        {/*<WigwamIcon className={classNames("h-[2rem]", "w-auto mr-3")} />*/}
       </div>
     ) : (
       <>

@@ -13,6 +13,7 @@ import BoardingPageLayout from "../layouts/BoardingPageLayout";
 import PopupLayout from "../layouts/PopupLayout";
 import ProfilePreview from "../blocks/ProfilePreview";
 import PasswordForm from "../blocks/PasswordForm";
+import SECTextLogo from "../elements/sec-logo/SECTextLogo";
 
 type UnlockProps = {
   isApproval?: boolean;
@@ -56,13 +57,23 @@ const Unlock: FC<UnlockProps> = ({ isApproval }) => {
         <div
           className={classNames(
             "fixed bottom-6 left-1/2 -translate-x-1/2",
-            "bottom-4",
-            "text-xl",
-            "font-black",
-            "flex items-center",
+            // "bottom-4",
+            // "text-xl",
+            // "font-black",
+            // "flex items-center",
           )}
         >
-          <WigwamIcon className={classNames("h-[1.375rem]", "w-auto mr-3")} />
+          {/*<WigwamIcon className={classNames("h-[1.375rem]", "w-auto mr-3")} />*/}
+          {/*<SECTextLogo/>*/}
+          <div className="flex items-center justify-center flex-1 sm:flex-0 gap-2">
+            <div className=" w-[38px] h-[38px] sm:w-[40px] sm:h-[40px]">
+              <img height={40} width={40} src="/logo.png" alt="logo" />
+            </div>
+            <div className="hidden sm:block h-8 w-px bg-gray-600 mx-4"></div>
+            <h2 className={`text-white font-semibold type-4 text-[14px]`}>
+              SMART ENERGY PAY
+            </h2>
+          </div>
         </div>
       )}
     </>

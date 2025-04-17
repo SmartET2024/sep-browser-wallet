@@ -244,46 +244,46 @@ const AssetInfo: FC = () => {
                 <ReceiveIcon className="w-4 h-auto mr-2" />
                 Receive
               </Button>
-              <Button
-                to={{
-                  onRampOpened: true,
-                  token: tokenSlug,
-                }}
-                merge
-                theme="secondary"
-                className="grow !py-2 !min-w-0 text-sm"
-                disabled={!showBuyButton}
-                title={showBuyButton ? undefined : "Coming soon"}
-                onClick={() => {
-                  trackEvent(TEvent.BuyNavigated, {
-                    page: "dashboard",
-                    tokenName: name,
-                    tokenSymbol: symbol,
-                    chainId,
-                  });
-                }}
-              >
-                <BuyIcon className="w-4 h-auto mr-2" />
-                Buy
-              </Button>
-              <Button
-                to={{ page: Page.Swap }}
-                merge={["token"]}
-                theme="secondary"
-                className="grow !py-2 !min-w-0 text-sm"
-                title={`Swap ${symbol}`}
-                onClick={() => {
-                  trackEvent(TEvent.SwapNavigated, {
-                    page: "dashboard",
-                    tokenName: name,
-                    tokenSymbol: symbol,
-                    chainId,
-                  });
-                }}
-              >
-                <SwapIcon className="w-4 h-auto mr-2" />
-                Swap
-              </Button>
+              {/*<Button*/}
+              {/*  to={{*/}
+              {/*    onRampOpened: true,*/}
+              {/*    token: tokenSlug,*/}
+              {/*  }}*/}
+              {/*  merge*/}
+              {/*  theme="secondary"*/}
+              {/*  className="grow !py-2 !min-w-0 text-sm"*/}
+              {/*  disabled={!showBuyButton}*/}
+              {/*  title={showBuyButton ? undefined : "Coming soon"}*/}
+              {/*  onClick={() => {*/}
+              {/*    trackEvent(TEvent.BuyNavigated, {*/}
+              {/*      page: "dashboard",*/}
+              {/*      tokenName: name,*/}
+              {/*      tokenSymbol: symbol,*/}
+              {/*      chainId,*/}
+              {/*    });*/}
+              {/*  }}*/}
+              {/*>*/}
+              {/*  <BuyIcon className="w-4 h-auto mr-2" />*/}
+              {/*  Buy*/}
+              {/*</Button>*/}
+              {/*<Button*/}
+              {/*  to={{ page: Page.Swap }}*/}
+              {/*  merge={["token"]}*/}
+              {/*  theme="secondary"*/}
+              {/*  className="grow !py-2 !min-w-0 text-sm"*/}
+              {/*  title={`Swap ${symbol}`}*/}
+              {/*  onClick={() => {*/}
+              {/*    trackEvent(TEvent.SwapNavigated, {*/}
+              {/*      page: "dashboard",*/}
+              {/*      tokenName: name,*/}
+              {/*      tokenSymbol: symbol,*/}
+              {/*      chainId,*/}
+              {/*    });*/}
+              {/*  }}*/}
+              {/*>*/}
+              {/*  <SwapIcon className="w-4 h-auto mr-2" />*/}
+              {/*  Swap*/}
+              {/*</Button>*/}
             </div>
 
             <TokenActivity token={tokenInfo!} />

@@ -28,6 +28,7 @@ export const getOnRampCryptoCurrencies = memoize(
       .filter((c) => c.slug !== NATIVE_TOKEN_SLUG)
       .map((c) => parseTokenSlug(c.slug).address);
 
+    console.log("flatonramp address", erc20Addresses);
     const erc20Prices = await getDexPrices(erc20Addresses);
 
     const result: Record<string, RampTokenInfo> = {};
