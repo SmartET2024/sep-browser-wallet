@@ -217,7 +217,7 @@ export const TransactionDetailsPageExpanded: React.FC = () => {
             px={2}
             sx={{ wordBreak: 'break-all' }}
           >
-          Wigwam leverages the advanced Li.Fi swap functionality for seamless asset exchanges. If you require assistance, please use this support ID  and contact them through the link below.
+          SEC leverages the advanced Li.Fi swap functionality for seamless asset exchanges. If you require assistance, please use this support ID  and contact them through the link below.
         </Typography>
       </Box>
       <Box mt={1}>
