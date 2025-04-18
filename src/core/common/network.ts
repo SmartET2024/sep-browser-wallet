@@ -28,9 +28,9 @@ export async function getRpcUrl(chainId: number) {
     const network = await getNetwork(chainId);
     url = network.rpcUrls[0];
   }
-  console.log("infura key 1", url.includes(INFURA_TEMPLATE));
+  // console.log("infura key 1", url.includes(INFURA_TEMPLATE));
   if (process.env.NODE_ENV !== "test" && url.includes(INFURA_TEMPLATE)) {
-    console.log("infura key 1", INFURA_TEMPLATE);
+    // console.log("infura key 1", INFURA_TEMPLATE);
     if (!INFURA_API_KEY) {
       throw new Error(
         "Current rpc url requires INFURA API KEY environment variable",

@@ -21,6 +21,9 @@ const ADDITIONAL_PLATFORM_COINS = new Map([[800001, "octaspace"]]);
 export const coinGeckoApi = axios.create({
   baseURL: "https://api.coingecko.com/api/v3",
   timeout: 90_000,
+  headers: {
+    "x-cg-demo-api-key": "COINGECKO_API_KEY_HERE",
+  },
 });
 
 export const coinGeckoTerminalApi = axios.create({
@@ -224,30 +227,34 @@ export async function getDexPrices(tokenAddresses: string[], chainId?: number) {
     //   },
     // };
 
-    console.log(`Token Addresses: ${JSON.stringify(erc20Addresses)}`);
-    console.log(`Platform ID: ${platformId}`);
+    if (erc20Addresses.length > 0) {
+      // console.log(`Token Addresses: ${JSON.stringify(erc20Addresses)}`);
+      // console.log(`Platform ID: ${platformId}`);
 
-    const dummyPrices: Record<string, DexTokenPrice> =
-      await fetchCoinGeckoTokenPrices(
-        platformId,
-        erc20Addresses.join(","),
-        "usd",
-      );
+      const dummyPrices: Record<string, DexTokenPrice> =
+        await fetchCoinGeckoTokenPrices(
+          platformId,
+          erc20Addresses.length > 1
+            ? erc20Addresses.join(",")
+            : erc20Addresses[0],
+          "usd",
+        );
 
-    console.log(`Prices Tokens: ${JSON.stringify(dummyPrices)}`);
+      // console.log(`Prices Tokens: ${JSON.stringify(dummyPrices)}`);
 
-    // Return dummy data for requested tokens
-    for (const tokenAddress of erc20Addresses) {
-      const normalizedAddress = tokenAddress.toLowerCase();
-      if (dummyPrices[normalizedAddress]) {
-        data[tokenAddress] = dummyPrices[normalizedAddress];
-      } else {
-        // For unknown tokens, return a default price
-        data[tokenAddress] = {
-          usd: 1.0,
-          usd_24h_change: 0,
-          usd_reserve: "1000000",
-        };
+      // Return dummy data for requested tokens
+      for (const tokenAddress of erc20Addresses) {
+        const normalizedAddress = tokenAddress.toLowerCase();
+        if (dummyPrices[normalizedAddress]) {
+          data[tokenAddress] = dummyPrices[normalizedAddress];
+        } else {
+          // For unknown tokens, return a default price
+          data[tokenAddress] = {
+            usd: 1.0,
+            usd_24h_change: 0,
+            usd_reserve: "1000000",
+          };
+        }
       }
     }
 
@@ -264,16 +271,18 @@ export const fetchCoinGeckoTokenPrices = memoize(
     contractAddresses: string,
     vs_currencies: string = "usd",
   ): Promise<DexPrices> => {
+    // console.log("Request URL:", `/simple/token_price/${platformId}`);
+    // console.log("Request Params:", {
+    //   contract_addresses: contractAddresses,
+    //   vs_currencies,
+    // });
     try {
       const response = await coinGeckoApi.get(
         `/simple/token_price/${platformId}`,
         {
           params: {
-            contractAddresses,
-            vs_currencies,
-          },
-          headers: {
-            "x-cg-demo-api-key": "",
+            contract_addresses: contractAddresses,
+            vs_currencies: vs_currencies,
           },
         },
       );
@@ -417,7 +426,7 @@ export const getCoinGeckoNativeTokenPrice = async (chainId: number) => {
     // Returns: { "smart-energy-pay": { usd: 0.005682, usd_24h_change: -0.3429139127518352 } }
     // console.log(prices);
 
-    console.log(`Prices Native Coin: ${JSON.stringify(dummyPrices)}`);
+    // console.log(`Prices Native Coin: ${JSON.stringify(dummyPrices)}`);
 
     // Get native coin ID for the chain
     const platformId = dummyChainIds[chainId];
@@ -425,7 +434,7 @@ export const getCoinGeckoNativeTokenPrice = async (chainId: number) => {
 
     const nativeCoinId = dummyPlatformIds[platformId]?.native_coin_id;
 
-    console.log(`nativeCoinId: ${nativeCoinId}`);
+    // console.log(`nativeCoinId: ${nativeCoinId}`);
 
     if (!nativeCoinId) return null;
 
