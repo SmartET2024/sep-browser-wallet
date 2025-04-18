@@ -1,4 +1,5 @@
 module.exports = {
+  silent: true,
   roots: ["<rootDir>/src"],
   collectCoverageFrom: ["src/**/*.{js,jsx,ts,tsx}", "!src/**/*.d.ts"],
   setupFiles: ["jest-webextension-mock"],

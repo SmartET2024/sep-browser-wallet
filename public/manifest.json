@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "{{envBadge}}SEC — Web3 Wallet",
+  "name": "SEC — Web3 Wallet",
   "version": "{{pkg.version}}",
   "icons": {
     "16": "icons/16.png",

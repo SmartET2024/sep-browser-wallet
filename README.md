@@ -1,4 +1,4 @@
-# Wigwam - Web3 Wallet
+# SEC - Web3 Wallet
 
 ### https://wigwam.app
 

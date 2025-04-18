@@ -69,7 +69,7 @@ const OnBoardingContent: FC = () => {
         <section className="mb-6 flex flex-col items-center">
           <img
             className="mb-6 w-11 h-11 rounded-md"
-            src={WigwamLogoImage}
+            src={"./logo.png"}
             alt="wigwam_logo"
           />
           <h3 className="mb-6 text-[1.75rem] font-bold text-center">

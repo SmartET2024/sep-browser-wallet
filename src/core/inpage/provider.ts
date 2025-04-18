@@ -55,11 +55,11 @@ export class InpageProvider extends Emitter {
   // https://eips.ethereum.org/EIPS/eip-6963
   // https://eips.ethereum.org/EIPS/eip-5749
   info: EIP6963ProviderInfo = Object.freeze({
-    name: "Wigwam",
-    uuid: `wigwam-${process.env.BUILD_ID}`,
-    rdns: "com.wigwam.wallet",
+    name: "SEC Wallet",
+    uuid: `sec-${process.env.BUILD_ID}`,
+    rdns: "com.sec.wallet",
     icon: ICON_SVG_BASE64,
-    description: "Wigwam — Web 3.0 Wallet",
+    description: "SEC — Web 3.0 Wallet",
   });
 
   #inited = false;

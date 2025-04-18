@@ -10,7 +10,7 @@ const iconsClassNames = classNames(
 );
 
 const DappLogos: FC<{ firstLogoUrl?: string; dappLogoUrl?: string }> = ({
-  firstLogoUrl = wigwamLogoUrl,
+  firstLogoUrl = "./logo.png",
   dappLogoUrl,
 }) => (
   <div className="flex items-center">
