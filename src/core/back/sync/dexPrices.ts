@@ -21,6 +21,9 @@ const ADDITIONAL_PLATFORM_COINS = new Map([[800001, "octaspace"]]);
 export const coinGeckoApi = axios.create({
   baseURL: "https://api.coingecko.com/api/v3",
   timeout: 90_000,
+  headers: {
+    "x-cg-demo-api-key": "COINGECKO_API_KEY_HERE",
+  },
 });
 
 export const coinGeckoTerminalApi = axios.create({
@@ -224,26 +227,34 @@ export async function getDexPrices(tokenAddresses: string[], chainId?: number) {
     //   },
     // };
 
-    console.log(`Token Addresses: ${JSON.stringify(erc20Addresses)}`);
-    console.log(`Platform ID: ${platformId}`);
+    if (erc20Addresses.length > 0) {
+      // console.log(`Token Addresses: ${JSON.stringify(erc20Addresses)}`);
+      // console.log(`Platform ID: ${platformId}`);
 
-    const dummyPrices: Record<string, DexTokenPrice> =
-      await fetchCoinGeckoTokenPrices(platformId, erc20Addresses.join(), "usd");
+      const dummyPrices: Record<string, DexTokenPrice> =
+        await fetchCoinGeckoTokenPrices(
+          platformId,
+          erc20Addresses.length > 1
+            ? erc20Addresses.join(",")
+            : erc20Addresses[0],
+          "usd",
+        );
 
-    console.log(`Prices Tokens: ${JSON.stringify(dummyPrices)}`);
+      // console.log(`Prices Tokens: ${JSON.stringify(dummyPrices)}`);
 
-    // Return dummy data for requested tokens
-    for (const tokenAddress of erc20Addresses) {
-      const normalizedAddress = tokenAddress.toLowerCase();
-      if (dummyPrices[normalizedAddress]) {
-        data[tokenAddress] = dummyPrices[normalizedAddress];
-      } else {
-        // For unknown tokens, return a default price
-        data[tokenAddress] = {
-          usd: 1.0,
-          usd_24h_change: 0,
-          usd_reserve: "1000000",
-        };
+      // Return dummy data for requested tokens
+      for (const tokenAddress of erc20Addresses) {
+        const normalizedAddress = tokenAddress.toLowerCase();
+        if (dummyPrices[normalizedAddress]) {
+          data[tokenAddress] = dummyPrices[normalizedAddress];
+        } else {
+          // For unknown tokens, return a default price
+          data[tokenAddress] = {
+            usd: 1.0,
+            usd_24h_change: 0,
+            usd_reserve: "1000000",
+          };
+        }
       }
     }
 
@@ -260,16 +271,18 @@ export const fetchCoinGeckoTokenPrices = memoize(
     contractAddresses: string,
     vs_currencies: string = "usd",
   ): Promise<DexPrices> => {
+    // console.log("Request URL:", `/simple/token_price/${platformId}`);
+    // console.log("Request Params:", {
+    //   contract_addresses: contractAddresses,
+    //   vs_currencies,
+    // });
     try {
       const response = await coinGeckoApi.get(
         `/simple/token_price/${platformId}`,
         {
           params: {
-            contractAddresses,
-            vs_currencies,
-          },
-          headers: {
-            "x-cg-demo-api-key": "",
+            contract_addresses: contractAddresses,
+            vs_currencies: vs_currencies,
           },
         },
       );
@@ -292,11 +305,6 @@ export const getCoinGeckoNativeTokenPrice = async (chainId: number) => {
       string,
       { native_coin_id: string; chain_id: number }
     > = {
-      ethereum: { native_coin_id: "ethereum", chain_id: 1 },
-      "binance-smart-chain": { native_coin_id: "binancecoin", chain_id: 56 },
-      "polygon-pos": { native_coin_id: "matic-network", chain_id: 137 },
-      "arbitrum-one": { native_coin_id: "ethereum", chain_id: 42161 },
-      "optimistic-ethereum": { native_coin_id: "ethereum", chain_id: 10 },
       "smart-energy-pay": {
         native_coin_id: "smart-energy-pay",
         chain_id: 19516,
@@ -305,16 +313,84 @@ export const getCoinGeckoNativeTokenPrice = async (chainId: number) => {
         native_coin_id: "smart-energy-pay-testnet",
         chain_id: 19516,
       },
+      ethereum: { native_coin_id: "ethereum", chain_id: 1 },
+      "polygon-pos": { native_coin_id: "matic-network", chain_id: 137 },
+      "binance-smart-chain": { native_coin_id: "binancecoin", chain_id: 56 },
+      "optimistic-ethereum": { native_coin_id: "ethereum", chain_id: 10 },
+      "arbitrum-one": { native_coin_id: "ethereum", chain_id: 42161 },
+      avalanche: { native_coin_id: "avalanche-2", chain_id: 43114 },
+      zksync: { native_coin_id: "ethereum", chain_id: 324 },
+      xdai: { native_coin_id: "xdai", chain_id: 100 },
+      base: { native_coin_id: "ethereum", chain_id: 8453 },
+      cronos: { native_coin_id: "crypto-com-chain", chain_id: 25 },
+      fantom: { native_coin_id: "fantom", chain_id: 250 },
+      mantle: { native_coin_id: "mantle", chain_id: 5000 },
+      celo: { native_coin_id: "celo", chain_id: 42220 },
+      linea: { native_coin_id: "ethereum", chain_id: 59144 },
+      scroll: { native_coin_id: "weth", chain_id: 534352 },
+      blast: { native_coin_id: "blast-old", chain_id: 81457 },
+      rootstock: { native_coin_id: "rootstock", chain_id: 30 },
+      mode: { native_coin_id: "mode", chain_id: 34443 },
+      moonbeam: { native_coin_id: "moonbeam", chain_id: 1284 },
+      aurora: { native_coin_id: "aurora-near", chain_id: 1313161554 },
+      moonriver: { native_coin_id: "moonriver", chain_id: 1285 },
+      "arbitrum-nova": { native_coin_id: "ethereum", chain_id: 42170 },
+      evmos: { native_coin_id: "evmos", chain_id: 9001 },
+      "huobi-token": { native_coin_id: "huobi-token", chain_id: 128 },
+      "harmony-shard-0": { native_coin_id: "harmony", chain_id: 1666600000 },
     };
 
+    const nativeCoinIds = [
+      "smart-energy-pay",
+      "ethereum",
+      "matic-network",
+      "binancecoin",
+      "avalanche-2",
+      "xdai",
+      "crypto-com-chain",
+      "fantom",
+      "mantle",
+      "celo",
+      "weth",
+      "blast-old",
+      "rootstock",
+      "mode",
+      "moonbeam",
+      "aurora-near",
+      "moonriver",
+      "evmos",
+      "huobi-token",
+      "harmony",
+    ];
+
     const dummyChainIds: Record<number, string> = {
+      19516: "smart-energy-pay",
+      19515: "smart-energy-pay-testnet",
       1: "ethereum",
       56: "binance-smart-chain",
       137: "polygon-pos",
       42161: "arbitrum-one",
       10: "optimistic-ethereum",
-      19516: "smart-energy-pay",
-      19515: "smart-energy-pay-testnet",
+      43114: "avalanche",
+      324: "zksync",
+      100: "xdai",
+      8453: "base",
+      25: "cronos",
+      250: "fantom",
+      5000: "mantle",
+      42220: "celo",
+      59144: "linea",
+      534352: "scroll",
+      81457: "blast",
+      30: "rootstock",
+      34443: "mode",
+      1284: "moonbeam",
+      1313161554: "aurora",
+      1285: "moonriver",
+      42170: "arbitrum-nova",
+      9001: "evmos",
+      128: "huobi-token",
+      1666600000: "harmony-shard-0",
     };
 
     // Dummy prices for native tokens
@@ -346,12 +422,11 @@ export const getCoinGeckoNativeTokenPrice = async (chainId: number) => {
     //   },
     // };
 
-    const apiIds = "ethereum,binancecoin,smart-energy-pay,matic-network";
-    const dummyPrices = await fetchCoinGeckoPrices(apiIds);
+    const dummyPrices = await fetchCoinGeckoPrices(nativeCoinIds.join(","));
     // Returns: { "smart-energy-pay": { usd: 0.005682, usd_24h_change: -0.3429139127518352 } }
     // console.log(prices);
 
-    console.log(`Prices Native Coin: ${JSON.stringify(dummyPrices)}`);
+    // console.log(`Prices Native Coin: ${JSON.stringify(dummyPrices)}`);
 
     // Get native coin ID for the chain
     const platformId = dummyChainIds[chainId];
@@ -359,7 +434,7 @@ export const getCoinGeckoNativeTokenPrice = async (chainId: number) => {
 
     const nativeCoinId = dummyPlatformIds[platformId]?.native_coin_id;
 
-    console.log(`nativeCoinId: ${nativeCoinId}`);
+    // console.log(`nativeCoinId: ${nativeCoinId}`);
 
     if (!nativeCoinId) return null;
 

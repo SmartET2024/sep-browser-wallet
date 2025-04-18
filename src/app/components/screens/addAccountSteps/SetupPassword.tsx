@@ -153,7 +153,7 @@ const SetupPassword = memo(() => {
                         I have read and agree to the
                         <br />
                         <a
-                          href="https://wigwam.app/terms"
+                          href="https://smartenergypay.com/imprint"
                           target="_blank"
                           rel="nofollow noreferrer"
                           className="text-brand-main underline"
@@ -182,10 +182,10 @@ const SetupPassword = memo(() => {
                     title="Analytics"
                     description={
                       <>
-                        Help us make Wigwam better.
+                        Help us make SEC better.
                         <br />I agree to the{" "}
                         <a
-                          href="https://wigwam.app/privacy"
+                          href="https://smartenergypay.com/privacy-policy"
                           target="_blank"
                           rel="nofollow noreferrer"
                           className="text-brand-main underline"

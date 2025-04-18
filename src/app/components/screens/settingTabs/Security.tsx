@@ -138,7 +138,7 @@ const Security: FC = () => {
           <>
             Analytics
             <p className="text-xs text-brand-placeholder max-w-[18.75rem]">
-              Anonymous. Help us make Wigwam better.
+              Anonymous. Help us make SEC better.
             </p>
           </>
         }
