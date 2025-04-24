@@ -22,7 +22,7 @@ export const coinGeckoApi = axios.create({
   baseURL: "https://api.coingecko.com/api/v3",
   timeout: 90_000,
   headers: {
-    "x-cg-demo-api-key": "COINGECKO_API_KEY_HERE",
+    "x-cg-demo-api-key": "CG-mXogFpy2oyzfp8kCZdggN9FN",
   },
 });
 

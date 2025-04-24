@@ -18,12 +18,7 @@
     "scripting"
   ],
 
-  "host_permissions": [
-    "http://localhost:8545/",
-    "file://*/*",
-    "http://*/*",
-    "https://*/*"
-  ],
+  "host_permissions": ["http://localhost:8545/", "https://*/*"],
 
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'; frame-ancestors 'none';"
